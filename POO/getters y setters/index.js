@@ -20,56 +20,56 @@ const correosValidados = {};
 
 function validarEmail(correo) {
   const patron = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  
+
   if (!patron.test(correo)) {
     return false; // El formato del correo no es válido
   }
-  
+
   if (correosValidados[correo]) {
     return "duplicado"; // El correo ya está duplicado
   }
-  
+
   correosValidados[correo] = true;
   return true;
 }
 
 
 class Usuario {
-  constructor(name, email, password){
+  constructor(name, email, password) {
     this.name = name
     this.email = email
     this.password = password
   }
 
-  set setPassword(password){
+  set setPassword(password) {
     let aster = ""
-    for(let i = 0; i<= password.length; i++){
+    for (let i = 0; i <= password.length; i++) {
       aster = aster + "*"
     }
     this.password = aster
   }
 
-  get getPassword(){
-    return this.password    
+  get getPassword() {
+    return this.password
   }
 
 
-  set setEmail(email){
+  set setEmail(email) {
     const resultadoBool = validarEmail(email)
 
-    if(!resultadoBool){
-      this.email =  "Correo no valido"
+    if (!resultadoBool) {
+      this.email = "Correo no valido"
     }
-    else if(resultadoBool === "duplicado"){
-      this.email =  "Correo duplicado"
+    else if (resultadoBool === "duplicado") {
+      this.email = "Correo duplicado"
     }
-    else{
+    else {
       this.email = email
     }
-    
+
   }
 
-  get getEmail(){
+  get getEmail() {
     return this.email
   }
 
@@ -94,4 +94,3 @@ console.log(sebastian.getPassword)
 
 
 console.log(sebastian)
-console.log(juan)
