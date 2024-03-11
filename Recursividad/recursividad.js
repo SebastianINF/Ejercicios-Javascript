@@ -1,11 +1,11 @@
 // devuelve el numero de fibonacci
-const  fibonacci = (num) =>  {
-  if(num === 1) return 0
-  num = num - 1
+const fibonacci = (num) => {
+  if (num === 1) return 0
+  num--;
   const fibo = (n) => {
     if (n <= 1) return n
     return fibo(n - 1) + fibo(n - 2)
-  } 
+  }
   return fibo(num)
 }
 
@@ -18,7 +18,6 @@ function factorial(n) {
 // Hace la cuenta regresiva
 function cuentaRegresiva(n) {
   if (n < 0) return
-  console.log(n)
   cuentaRegresiva(n - 1)
 }
 
@@ -29,7 +28,7 @@ function suma(n) {
 }
 
 // Los digitos de 1 hasta n ejem: 5 --> 12345
-function ditos(n) {
+function digitos(n) {
   if (n < 1) return ''
   return digitos(n - 1) + n
 }
@@ -46,8 +45,6 @@ function exponencial(base, exponente) {
   if (exponente === 1) return base
   return base * exponencial(base, exponente - 1)
 }
-
-console.log(exponencial(3, 4))
 
 // Invierte un número
 function invertir(n) {
@@ -66,6 +63,7 @@ function crearlinea(n) {
   if (n < 1) return ''
   return crearlinea(n - 1) + '* '
 }
+
 function crearCuadrilatero(base, altura) {
   if (altura === 0) return ''
   return `${crearlinea(base)}\n${crearCuadrilatero(base, altura - 1)}`
@@ -75,4 +73,85 @@ function crearCuadrilatero(base, altura) {
 function crearTrianguloRectangulo(altura) {
   if (altura === 0) return ''
   return `${crearTrianguloRectangulo(altura - 1)}\n${crearlinea(altura)}`
+}
+
+// suma los digitos de un número
+function sumarDigitos(x) {
+  let s;
+  if (x < 10) {
+    s = x;
+  }
+  else {
+    s = sumarDigitos(Math.floor(x / 10)) + x % 10;
+  }
+  return s;
+}
+
+// suma los digitos impares de un número
+function sumarDigitosImpares(x) {
+  let s;
+  if (x < 10) {
+    if (x % 2 == 1)
+      s = x;
+    else
+      s = 0;
+  }
+  else {
+    s = sumarDigitosImpares(Math.floor(x / 10));
+    if (x % 2 == 1)
+      s = s + x % 10;
+  }
+  return s;
+}
+
+function sumarDigitosPares(x) {
+  let s;
+  if (x < 10) {
+    if (x % 2 == 0)
+      s = x;
+    else
+      s = 0;
+  }
+  else {
+    s = sumarDigitosImpares(Math.floor(x / 10));
+    if (x % 2 == 0)
+      s = s + x % 10;
+  }
+  return s;
+}
+
+function restarDigitosImparPar(x) {
+  let s;
+  if (x < 10) {
+    if (x % 2 == 1)
+      s = x;
+    else
+      s = -x;
+  }
+  else {
+    if (x % 2 == 1)
+      s = x % 10;
+    else
+      s = -x % 10;
+    s = restarDigitosImparPar(Math.floor(x / 10)) + s;
+  }
+  return s;
+}
+
+function restarDigitosParImpar(x) {
+  let s;
+  if (x < 10) {
+    if (x % 2 == 0)
+      s = x;
+    else
+      s = -x;
+  }
+  else {
+    if (x % 2 == 0)
+      s = x % 10;
+    else
+      s = -x % 10;
+    s = restarDigitosParImpar(Math.floor(x / 10)) + s;
+  }
+  return s;
 }
