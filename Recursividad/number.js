@@ -155,3 +155,64 @@ function restarDigitosParImpar(x) {
   }
   return s;
 }
+
+function agregarComaDigitos(x) {
+  let s;
+  if (x < 10) {
+    s = x;
+  }
+  else {
+    s = agregarComaDigitos(Math.floor(x / 10)) + ',' + x % 10;
+  }
+  return s;
+}
+
+function retornarMenorDigito(x) {
+  let m;
+  if (x < 10) {
+    m = x;
+  }
+  else {
+    m = retornarMenorDigito(Math.floor(x / 10));
+    if (x % 10 < m) {
+      m = x % 10;
+    }
+  }
+  return m;
+}
+
+function verificarOrdenado(x) {
+  let b;
+  if (x < 10) {
+    b = true;
+  }
+  else {
+    b = verificarOrdenado(Math.floor(x / 10)) && (x / 10 % 10 <= x % 10);
+  }
+  return b;
+}
+
+function moverMayorDigitoAlFinal(ref) {
+  if (ref.x < 10) {
+    // nada
+  }
+  else {
+    let d = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    moverMayorDigitoAlFinal(ref);
+    if (ref.x % 10 <= d) {
+      ref.x = ref.x * 10 + d;
+    }
+    else {
+      let z = ref.x % 10;
+      ref.x = Math.floor(ref.x / 10);
+      ref.x = (ref.x * 10 + d) * 10 + z;
+    }
+  }
+}
+
+const ref = {
+  x: 7123
+}
+moverMayorDigitoAlFinal(ref)
+console.log(ref.x);
