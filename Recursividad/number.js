@@ -50,7 +50,7 @@ function exponencial(base, exponente) {
 function invertir(n) {
   let aux = 0
   const invertiendo = (n1, respuesta) => {
-    if (n1 === 0) return respuesta
+    if (n1 < 1) return respuesta
     respuesta = respuesta * 10 + (n1 % 10)
     n1 = Math.floor(n1 / 10)
     return invertiendo(n1, respuesta)
@@ -167,6 +167,17 @@ function agregarComaDigitos(x) {
   return s;
 }
 
+function agregarComaDigitosEInvertir(x) {
+  let s;
+  if (x < 10) {
+    s = x;
+  }
+  else {
+    s = (x % 10) + ',' + agregarComaDigitosEInvertir(Math.floor(x / 10));
+  }
+  return s;
+}
+
 function retornarMenorDigito(x) {
   let m;
   if (x < 10) {
@@ -211,8 +222,128 @@ function moverMayorDigitoAlFinal(ref) {
   }
 }
 
-const ref = {
-  x: 7123
+/**
+ * importante no se deben de repetir los digitos el maximo numero es 123456789 porque sino rompe el call stack size 
+ * @param {ref} ref objeto con propiedad ref.x
+ */
+function ordenar(ref) {
+  if (ref.x < 10) {
+    // nada
+  }
+  else {
+    let d = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    ordenar(ref);
+    if (ref.x % 10 <= d) {
+      ref.x = ref.x * 10 + d;
+    }
+    else {
+      let z = ref.x % 10;
+      ref.x = Math.floor(ref.x / 10);
+      ref.x = (ref.x * 10 + d) * 10 + z;
+    };
+    let aux = ref.x
+    if (!verificarOrdenado(aux)) {
+      ordenar(ref);
+    }
+  }
 }
-moverMayorDigitoAlFinal(ref)
-console.log(ref.x);
+
+function eliminarDigitosImpares(ref) {
+  if (ref.x < 10) { // caso base
+    if (ref.x % 2 == 0) {
+      // nada 
+    } if (ref.x % 2 == 1) {
+      ref.x = 0;
+    }
+  }
+  else { // caso general
+    let ultimoDigito = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    eliminarDigitosImpares(ref);
+    if (ultimoDigito % 2 == 0) {
+      ref.x = ref.x * 10 + ultimoDigito;
+    }
+    if (ultimoDigito % 2 == 1) {
+      // nada
+    }
+  }
+}
+
+function eliminarDigitosPares(ref) {
+  if (ref.x < 10) { // caso base
+    if (ref.x % 2 == 1) {
+      // nada 
+    } if (ref.x % 2 == 0) {
+      ref.x = 0;
+    }
+  }
+  else { // caso general
+    let ultimoDigito = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    eliminarDigitosPares(ref);
+    if (ultimoDigito % 2 == 1) {
+      ref.x = ref.x * 10 + ultimoDigito;
+    }
+    if (ultimoDigito % 2 == 0) {
+      // nada
+    }
+  }
+}
+
+function encontrarDigitoMayorYMenor(x, ref) {
+  if (x < 10) { // caso base
+    ref.M = x;
+    ref.m = x;
+  }
+  else { // caso general
+    let ultimoDigito = x % 10;
+    x = Math.floor(x / 10);
+    encontrarDigitoMayorYMenor(x, ref);
+    if (ref.M < ultimoDigito) {
+      ref.M = ultimoDigito;
+    }
+    if (ref.m > ultimoDigito) {
+      ref.m = ultimoDigito;
+    }
+  }
+}
+
+function repetirNumero(numero, veces) {
+  let cad;
+  if (veces == 0)
+    cad = "";
+  else
+    cad = repetirNumero(numero, veces - 1) + numero;
+  return cad;
+}
+
+function repetirDigitos(n) {
+  let cad;
+  if (n < 10)
+    cad = repetirNumero(n, n);
+  else {
+    let dig = n % 10;
+    n = Math.floor(n / 10);
+    cad = repetirDigitos(n) + repetirNumero(dig, dig);
+  }
+  return cad;
+}
+
+function contarDigitosImparesAntesDeUnoPar(x) {
+  let c;
+  if (x < 10) {
+    c = 0;
+  }
+  else {
+    let ultimoDigito = x % 10;
+    let penultimoDigito = Math.floor(x / 10) % 10;
+    if (penultimoDigito % 2 == 0 && ultimoDigito % 2 == 1) {
+      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10)) + 1;
+    }
+    else {
+      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10));
+    }
+  }
+  return c;
+}
