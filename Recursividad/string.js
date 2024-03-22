@@ -1,6 +1,12 @@
-function verificarVocal(c) {
-  let vocales = 'aeiouáéíóúäëïöüAEIOUÁÉÍÓÚÄËÏÖÜ' // Todas las vocales
-  return vocales.includes(c)
+function verificarVocal(char) {
+  const vocales = 'aeiouáéíóúäëïöüAEIOUÁÉÍÓÚÄËÏÖÜ' // Todas las vocales
+  return vocales.includes(char)
+}
+
+function verificarLetra(char) {
+  const letras =
+    "qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNMáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ"; // todas las letras
+  return letras.includes(char);
 }
 
 function contarEspacios(x) {
@@ -132,6 +138,104 @@ function verificar_palindromo(x) {
   return b;
 }
 
+
+function primerPalabra(x) {
+  let p;
+  let c = x.length;
+  if (c === 0) {
+    p = "";
+  } else if (c === 1) {
+    if (verificarLetra(x[1])) {
+      p = x;
+    } else {
+      p = "";
+    }
+  } else {
+    let a = x[0]; // a = h
+    x = x.substring(1, x.length)
+    p = primerPalabra(x); // n-1 => hola mundo -> ola
+    if (verificarLetra(a) && verificarLetra(x[0])) {
+      p = a + p;
+    } else if (verificarLetra(a) && !verificarLetra(x[0])) {
+      p = a;
+    } else if (!verificarLetra(a) && verificarLetra(x[0])) {
+      // nada
+    } else if (!verificarLetra(a) && !verificarLetra(x[0])) {
+      // nada
+    }
+  }
+  return p;
+}
+
+function eliminarPrimerPalabra(ref) {
+  let c = ref.x.length;
+  if (c == 0) {
+    // nada
+  } else if (c == 1) {
+    if (verificarLetra(ref.x[1])) {
+      ref.x = "";
+    } else {
+      // nada
+    }
+  } else {
+    let a = ref.x[0];
+    ref.x = ref.x.substring(1, ref.x.length)
+    if (verificarLetra(a) && verificarLetra(ref.x[0])) {
+      eliminarPrimerPalabra(ref);
+    } else if (verificarLetra(a) && !verificarLetra(ref.x[0])) {
+      // nada
+    } else if (!verificarLetra(a) && verificarLetra(ref.x[0])) {
+      eliminarPrimerPalabra(ref);
+      ref.x = a + ref.x;
+    } else if (!verificarLetra(a) && !verificarLetra(ref.x[0])) {
+      eliminarPrimerPalabra(ref);
+      ref.x = a + ref.x;
+    }
+  }
+}
+
+// Ej1 x = "hola a todos" => " a todos"
+// Ej2 x = "123hola a todos" => " a todos"
+function eliminarHastaPrimerPalabra(ref) {
+  if (ref.x == "") {
+    // nada
+  } else {
+    let a = ref.x[0];
+    // a1
+    ref.x = ref.x.substring(1, ref.x.length);
+    if (!verificarLetra(a)) {
+      eliminarHastaPrimerPalabra(ref);
+    } else {
+      if (ref.x != "" && verificarLetra(ref.x[0])) {
+        eliminarHastaPrimerPalabra(ref);
+      }
+    }
+  }
+}
+
+// Ej x = "hola a todos *123" => "hola a "
+function eliminarDesdePrimerPalabra(ref) {
+  if (ref.x == "") {
+    // nada
+  } else {
+    let a = ref.x[ref.x.length - 1];
+    ref.x = ref.x.substring(0, ref.x.length - 1)
+    if (!verificarLetra(a)) {
+      eliminarDesdePrimerPalabra(ref);
+    } else {
+      if (ref.x != "" && verificarLetra(ref.x[ref.x.length - 1])) {
+        eliminarDesdePrimerPalabra(ref);
+      }
+    }
+  }
+}
+
+const ref = {
+  x: "hola a todos *123"
+}
+eliminarDesdePrimerPalabra(ref)
+console.log(ref.x);
+
 // String palabra_mas_larga(String x)
 // {
 //     String mas, p;
@@ -195,5 +299,4 @@ function verificar_palindromo(x) {
 // //    }
 // //    return bin;
 // //}
-
 

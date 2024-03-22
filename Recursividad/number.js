@@ -192,25 +192,36 @@ function retornarMenorDigito(x) {
   return m;
 }
 
-function verificarOrdenado(x) {
+function verificarOrdenadoAscendente(x) {
   let b;
   if (x < 10) {
     b = true;
   }
   else {
-    b = verificarOrdenado(Math.floor(x / 10)) && (x / 10 % 10 <= x % 10);
+    b = verificarOrdenadoAscendente(Math.floor(x / 10)) && (x / 10 % 10 <= x % 10);
   }
   return b;
 }
 
-function moverMayorDigitoAlFinal(ref) {
+function verificarOrdenadoDescendente(x) {
+  let b;
+  if (x < 10) {
+    b = true;
+  }
+  else {
+    b = verificarOrdenadoDescendente(Math.floor(x / 10)) && (x / 10 % 10 >= x % 10);
+  }
+  return b;
+}
+
+function moverDigitoMayorAlFinal(ref) {
   if (ref.x < 10) {
     // nada
   }
   else {
     let d = ref.x % 10;
     ref.x = Math.floor(ref.x / 10);
-    moverMayorDigitoAlFinal(ref);
+    moverDigitoMayorAlFinal(ref);
     if (ref.x % 10 <= d) {
       ref.x = ref.x * 10 + d;
     }
@@ -222,30 +233,48 @@ function moverMayorDigitoAlFinal(ref) {
   }
 }
 
-/**
- * importante no se deben de repetir los digitos el maximo numero es 123456789 porque sino rompe el call stack size 
- * @param {ref} ref objeto con propiedad ref.x
- */
-function ordenar(ref) {
+function moverDigitoMenorAlFinal(ref) {
   if (ref.x < 10) {
     // nada
   }
   else {
     let d = ref.x % 10;
     ref.x = Math.floor(ref.x / 10);
-    ordenar(ref);
-    if (ref.x % 10 <= d) {
+    moverDigitoMenorAlFinal(ref);
+    if (ref.x % 10 >= d) {
       ref.x = ref.x * 10 + d;
     }
     else {
       let z = ref.x % 10;
       ref.x = Math.floor(ref.x / 10);
       ref.x = (ref.x * 10 + d) * 10 + z;
-    };
-    let aux = ref.x
-    if (!verificarOrdenado(aux)) {
-      ordenar(ref);
     }
+  }
+}
+
+function ordenamientoAscendente(ref) {
+  if (ref.x < 10) {
+    // nada
+  }
+  else {
+    moverDigitoMayorAlFinal(ref);
+    let ultimoDigito = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    ordenamientoAscendente(ref);
+    ref.x = ref.x * 10 + ultimoDigito;
+  }
+}
+
+function ordenamientoDescendente(ref) {
+  if (ref.x < 10) {
+    // nada
+  }
+  else {
+    moverDigitoMenorAlFinal(ref);
+    let ultimoDigito = ref.x % 10;
+    ref.x = Math.floor(ref.x / 10);
+    ordenamientoDescendente(ref);
+    ref.x = ref.x * 10 + ultimoDigito;
   }
 }
 
