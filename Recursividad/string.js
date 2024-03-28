@@ -169,7 +169,7 @@ function primerPalabra(x) {
 
 function eliminarPrimerPalabra(ref) {
   let c = ref.x.length;
-  if (c == 0) {
+  if (c === 0) {
     // nada
   } else if (c == 1) {
     if (verificarLetra(ref.x[1])) {
@@ -230,11 +230,33 @@ function eliminarDesdePrimerPalabra(ref) {
   }
 }
 
-const ref = {
-  x: "hola a todos *123"
+function contarPalabras(x) {
+  let c;
+  let length = x.length;
+  if (length === 0) {
+    c = 0;
+  } else if (length === 1) {
+    if (verificarLetra(x[0])) {
+      c = 1;
+    } else {
+      c = 0;
+    }
+  } else {
+    let a = x[0];
+    x = x.substring(1, x.length);
+    c = contarPalabras(x);
+    if (verificarLetra(a) && !verificarLetra(x[0])) {
+      c++;
+    }
+  }
+
+  return c;
 }
-eliminarDesdePrimerPalabra(ref)
-console.log(ref.x);
+
+// void invertir_frase(String x) {
+//  invertirCadena(ref);
+//  invertir_cada_palabra(ref);
+// }
 
 // String palabra_mas_larga(String x)
 // {
@@ -300,3 +322,95 @@ console.log(ref.x);
 // //    return bin;
 // //}
 
+// EJERCICIO MÁS DIFICIL
+// -------------------------------------------------------------
+// Ej1: x = "hola104 mundo54 como1 estan" => 104
+// Ej2: x = "Hola mundo" => 0
+// Cardinal posNum(String cad, bool num)
+// {
+//     Cardinal pos;
+//     if (cad.Length() == 0)
+//         pos = 0;
+//     else {
+//         wchar_t c = cad[cad.Length()];
+//         cad.Delete(cad.Length(), 1);
+//         pos = posNum(cad, num);
+//         if (pos == 0) {
+//             if (num) {
+//                 if (isdigit(c))
+//                     pos = cad.Length() + 1;
+//             } else {
+//                 if (!isdigit(c))
+//                     pos = cad.Length() + 1;
+//             }
+//         }
+//     }
+//     return pos;
+// }
+
+// Cardinal mayor(String cad)
+// {
+//     Cardinal may;
+//     if (cad.Length() == 0)
+//         may = 0;
+//     else {
+//         Cardinal posA = posNum(cad, true);
+//         Cardinal num;
+//         if (posA > 0) {
+//             cad.Delete(1, posA - 1);
+//             Cardinal posB = posNum(cad, false);
+//             if (posB == 0)
+//                 posB = cad.Length() + 1;
+//             num = StrToInt(cad.SubString(1, posB - 1));
+//             cad.Delete(1, posB - 1);
+//         } else {
+//             num = 0;
+//             cad = "";
+//         }
+//         may = mayor(cad);
+//         if (num > may)
+//             may = num;
+//     }
+//     return may;
+// }
+
+// Cardinal numero_mayor(String x)
+// {
+//     Cardinal may;
+//     if (x.Length() == 0)
+//         may = 0;
+//     else {
+//         Cardinal pos = x.Pos(" ");
+//         if (pos == 0)
+//             pos = x.Length() + 1;
+//         String pal = x.SubString(1, pos - 1);
+//         x.Delete(1, pos);
+//         may = numero_mayor(x);
+//         Cardinal num = mayor(pal);
+//         if (num > may)
+//             may = num;
+//     }
+//     return may;
+// }
+// // -------------------------------------------------------------
+
+// NO FUNCIONA!!!!!!
+// void invertir_frase(String &x)
+// {
+//     byte n = x.Length();
+//     if (n == 0) {
+//         // nada
+//     } else if (n == 1) {
+//         // nada
+//     } else {
+//         byte pos = x.Pos(' ');
+//         String palabra = x.SubString(1, pos);
+//         x.Delete(1, pos);
+//         invertir_cadena(palabra);
+//         invertir_frase(x);
+//         x = x + palabra;
+//     }
+// }
+
+// TODO : invertir_cada_palabra(x);
+export {primerPalabra, eliminarPrimerPalabra}
