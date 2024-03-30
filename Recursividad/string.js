@@ -145,7 +145,7 @@ function primerPalabra(x) {
   if (c === 0) {
     p = "";
   } else if (c === 1) {
-    if (verificarLetra(x[1])) {
+    if (verificarLetra(x[0])) {
       p = x;
     } else {
       p = "";
@@ -171,8 +171,8 @@ function eliminarPrimerPalabra(ref) {
   let c = ref.x.length;
   if (c === 0) {
     // nada
-  } else if (c == 1) {
-    if (verificarLetra(ref.x[1])) {
+  } else if (c === 1) {
+    if (verificarLetra(ref.x[0])) {
       ref.x = "";
     } else {
       // nada
@@ -413,4 +413,4 @@ function contarPalabras(x) {
 // }
 
 // TODO : invertir_cada_palabra(x);
-export {primerPalabra, eliminarPrimerPalabra}
+export {verificarLetra, primerPalabra, eliminarPrimerPalabra}
