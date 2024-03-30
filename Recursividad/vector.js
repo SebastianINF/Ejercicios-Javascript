@@ -1,62 +1,4 @@
-function verificarLetra(char) {
-  const letras =
-    'qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNMáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ' // todas las letras
-  return letras.includes(char)
-}
-function primerPalabra(x) {
-  let p
-  let c = x.length
-  if (c === 0) {
-    p = ''
-  } else if (c === 1) {
-    if (verificarLetra(x[1])) {
-      p = x
-    } else {
-      p = ''
-    }
-  } else {
-    let a = x[0] // a = h
-    x = x.substring(1, x.length)
-    p = primerPalabra(x) // n-1 => hola mundo -> ola
-    if (verificarLetra(a) && verificarLetra(x[0])) {
-      p = a + p
-    } else if (verificarLetra(a) && !verificarLetra(x[0])) {
-      p = a
-    } else if (!verificarLetra(a) && verificarLetra(x[0])) {
-      // nada
-    } else if (!verificarLetra(a) && !verificarLetra(x[0])) {
-      // nada
-    }
-  }
-  return p
-}
-
-function eliminarPrimerPalabra(ref) {
-  let c = ref.x.length
-  if (c === 0) {
-    // nada
-  } else if (c == 1) {
-    if (verificarLetra(ref.x[1])) {
-      ref.x = ''
-    } else {
-      // nada
-    }
-  } else {
-    let a = ref.x[0]
-    ref.x = ref.x.substring(1, ref.x.length)
-    if (verificarLetra(a) && verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref)
-    } else if (verificarLetra(a) && !verificarLetra(ref.x[0])) {
-      // nada
-    } else if (!verificarLetra(a) && verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref)
-      ref.x = a + ref.x
-    } else if (!verificarLetra(a) && !verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref)
-      ref.x = a + ref.x
-    }
-  }
-}
+import { verificarLetra, primerPalabra, eliminarPrimerPalabra } from './string.js'
 // Cargar Random
 function cargar(v, n) {
   if (n === 0) {
@@ -78,7 +20,7 @@ function cargarPalabras(ref, v, a) {
   }
 }
 
-function sumarTodosLosElementos(v, a, b) {
+function sumarTodosLosNumeros(v, a, b) {
   let s
   let n = b - a + 1
   if (n === 0) {
@@ -86,7 +28,7 @@ function sumarTodosLosElementos(v, a, b) {
   } else if (n === 1) {
     s = v[a]
   } else {
-    s = sumarTodosLosElementos(v, a + 2, b)
+    s = sumarTodosLosNumeros(v, a + 2, b)
     s = s + v[a] + v[a + 1]
   }
   return s
@@ -106,13 +48,13 @@ function invertir(v, a, n) {
   }
 }
 
-function moverMayorAlFinal(v, n) {
+function moverNumeroMayorAlFinal(v, n) {
   if (n === 0) {
     // nada
   } else if (n === 1) {
     // nada
   } else {
-    moverMayorAlFinal(v, n - 1)
+    moverNumeroMayorAlFinal(v, n - 1)
     if (v[n - 2] > v[n - 1]) {
       const temp = v[n - 2]
       v[n - 2] = v[n - 1]
@@ -121,13 +63,13 @@ function moverMayorAlFinal(v, n) {
   }
 }
 
-function moverMenorAlFinal(v, n) {
+function moverNumeroMenorAlFinal(v, n) {
   if (n === 0) {
     // nada
   } else if (n === 1) {
     // nada
   } else {
-    moverMenorAlFinal(v, n - 1)
+    moverNumeroMenorAlFinal(v, n - 1)
     if (v[n - 2] < v[n - 1]) {
       const temp = v[n - 2]
       v[n - 2] = v[n - 1]
@@ -136,25 +78,25 @@ function moverMenorAlFinal(v, n) {
   }
 }
 
-function ordenamamientoAscendente(v, n) {
+function ordenamamientoBurbujaAscendente(v, n) {
   if (n === 0) {
     // nada
   } else if (n === 1) {
     // nada
   } else {
     moverMayorAlFinal(v, n)
-    ordenamamientoAscendente(v, n - 1)
+    ordenamamientoBurbujaAscendente(v, n - 1)
   }
 }
 
-function ordenamientoDescendente(v, n) {
+function ordenamientoBurbujaDescendente(v, n) {
   if (n === 0) {
     // nada
   } else if (n === 1) {
     // nada
   } else {
     moverMenorAlFinal(v, n)
-    ordenamientoDescendente(v, n - 1)
+    ordenamientoBurbujaDescendente(v, n - 1)
   }
 }
 
@@ -208,6 +150,64 @@ function verificarOrdenadoDescendente(v, a, n) {
   return bol
 }
 
-const v1 = []
-cargar(v1, 4)
-console.log(v1)
+function contarNumerosPares(v, n) {
+  let c
+  if (n === 0) {
+    c = 0
+  } else {
+    c = contarNumerosPares(v, n - 1)
+    if (v[n - 1] % 2 == 0) {
+      c++
+    }
+  }
+  return c
+}
+
+//Escribir un proceso para eliminar el dato x de un vector.
+//Ej. v[2,5,65,23,45,2,13,45,61], x=2 EliminarX(x, v, 9) => v[5,65,23,45,13,45,61]
+
+function Recorrer(v, a, b) {
+  let n = b - a + 1
+  if (n > 0) {
+    v[a] = v[a + 1]
+    Recorrer(v, a + 1, b)
+  }
+}
+
+// Hay un problema cuando se repite el número
+// [ 8, 4, 6, 5, 4, 2 ]
+// [ 8, 6, 5, 2, undefined ]
+function EliminarX(v, a, b, x) {
+  let n = b - a + 1
+  if (n > 0) {
+    let d = v[a]
+    EliminarX(v, a + 1, b, x)
+    if (d === x) {
+      Recorrer(v, a, b)
+      v.length--
+    }
+  }
+}
+
+// function verificarPalindromo(v, a, b, n) {
+//   let p = true
+//   if (a <= n / 2) {
+//     p = verificarPalindromo(v, a + 1, b - 1, n)
+//     if (p !== false) {
+//       if (v[a] === v[b]) {
+//         p = true
+//       } else {
+//         p = false
+//       }
+//     }
+//   }
+//   return p
+// }
+
+// void factorialvector(TStringGrid *v,byte n){
+//  if (n>0){
+// 	 int d=factorial(StrToInt(v->Cells[n-1][0]));
+// 	 v->Cells[n-1][0]=d;
+// 	 factorialvector(v,n-1);
+//  }
+// }
