@@ -5,8 +5,8 @@ function verificarVocal(char) {
 
 function verificarLetra(char) {
   const letras =
-    "qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNMáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ"; // todas las letras
-  return letras.includes(char);
+    'qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNMáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ' // todas las letras
+  return letras.includes(char)
 }
 
 function contarEspacios(x) {
@@ -60,7 +60,7 @@ function contarVocalesV3(x) {
   if (x === '') {
     c = 0
   } else if (x.length === 1) {
-    c = verificarVocal(x[0]) ? 1 : 0;
+    c = verificarVocal(x[0]) ? 1 : 0
   } else {
     let a = x[0]
     let b = x[1]
@@ -77,119 +77,113 @@ function contarVocalesV3(x) {
 }
 
 function invertirCadena(ref) {
-  if (ref.x === "") {
+  if (ref.x === '') {
     // nada
-  }
-  else {
-    let a = ref.x[0];
+  } else {
+    let a = ref.x[0]
     ref.x = ref.x.substring(1, ref.x.length)
-    invertirCadena(ref);
-    ref.x = ref.x + a;
+    invertirCadena(ref)
+    ref.x = ref.x + a
   }
 }
 
 function verificarSoloEspacios(x) {
-  let b;
-  if (x === " ") {
-    b = true;
-  }
-  else {
-    let a = x[0];
+  let b
+  if (x === ' ') {
+    b = true
+  } else {
+    let a = x[0]
     x = x.substring(1, x.length)
     if (a !== ' ') {
-      b = false;
-    }
-    else {
-      b = verificarSoloEspacios(x);
+      b = false
+    } else {
+      b = verificarSoloEspacios(x)
     }
   }
-  return b;
+  return b
 }
 
 function eliminarVocales(ref) {
-  if (ref.x === "") {
+  if (ref.x === '') {
     // nada
-  }
-  else {
-    let a = ref.x[0];
+  } else {
+    let a = ref.x[0]
     ref.x = ref.x.substring(1, ref.x.length)
-    eliminarVocales(ref);
+    eliminarVocales(ref)
     if (!verificarVocal(a)) {
-      ref.x = a + ref.x;
+      ref.x = a + ref.x
     }
   }
 }
 
 function verificar_palindromo(x) {
-  let b;
-  let length = x.length;
+  let b
+  let length = x.length
   if (length <= 1) {
-    b = true;
-  }
-  else {
-    let primero = x[0];
-    let ultimo = x[length - 1];
-    x = x.substring(1, length - 1);
-    b = verificar_palindromo(x);
+    b = true
+  } else {
+    let primero = x[0]
+    let ultimo = x[length - 1]
+    x = x.substring(1, length - 1)
+    b = verificar_palindromo(x)
     if (primero != ultimo) {
-      b = false;
+      b = false
     }
   }
-  return b;
+  return b
 }
 
-
 function primerPalabra(x) {
-  let p;
-  let c = x.length;
+  let p
+  let c = x.length
   if (c === 0) {
-    p = "";
+    p = ''
   } else if (c === 1) {
     if (verificarLetra(x[0])) {
-      p = x;
+      p = x
     } else {
-      p = "";
+      p = ''
     }
   } else {
-    let a = x[0]; // a = h
+    let a = x[0] // a = h
     x = x.substring(1, x.length)
-    p = primerPalabra(x); // n-1 => hola mundo -> ola
+    p = primerPalabra(x) // n-1 => hola mundo -> ola
     if (verificarLetra(a) && verificarLetra(x[0])) {
-      p = a + p;
+      p = a + p
     } else if (verificarLetra(a) && !verificarLetra(x[0])) {
-      p = a;
+      p = a
     } else if (!verificarLetra(a) && verificarLetra(x[0])) {
       // nada
     } else if (!verificarLetra(a) && !verificarLetra(x[0])) {
       // nada
     }
   }
-  return p;
+  return p
 }
 
 function eliminarPrimerPalabra(ref) {
-  let c = ref.x.length;
+  let c = ref.x.length
   if (c === 0) {
     // nada
   } else if (c === 1) {
     if (verificarLetra(ref.x[0])) {
-      ref.x = "";
+      ref.x = ''
     } else {
       // nada
     }
   } else {
-    let a = ref.x[0];
+    let a = ref.x[0]
     ref.x = ref.x.substring(1, ref.x.length)
     if (verificarLetra(a) && verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref);
+      eliminarPrimerPalabra(ref)
     } else if (verificarLetra(a) && !verificarLetra(ref.x[0])) {
       // nada
     } else if (!verificarLetra(a) && verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref);
-      ref.x = a + ref.x;
+      eliminarPrimerPalabra(ref)
+      ref.x = a + ref.x
     } else if (!verificarLetra(a) && !verificarLetra(ref.x[0])) {
-      eliminarPrimerPalabra(ref);
-      ref.x = a + ref.x;
+      eliminarPrimerPalabra(ref)
+      ref.x = a + ref.x
     }
   }
 }
@@ -197,17 +191,17 @@ function eliminarPrimerPalabra(ref) {
 // Ej1 x = "hola a todos" => " a todos"
 // Ej2 x = "123hola a todos" => " a todos"
 function eliminarHastaPrimerPalabra(ref) {
-  if (ref.x == "") {
+  if (ref.x == '') {
     // nada
   } else {
-    let a = ref.x[0];
+    let a = ref.x[0]
     // a1
-    ref.x = ref.x.substring(1, ref.x.length);
+    ref.x = ref.x.substring(1, ref.x.length)
     if (!verificarLetra(a)) {
-      eliminarHastaPrimerPalabra(ref);
+      eliminarHastaPrimerPalabra(ref)
     } else {
-      if (ref.x != "" && verificarLetra(ref.x[0])) {
-        eliminarHastaPrimerPalabra(ref);
+      if (ref.x != '' && verificarLetra(ref.x[0])) {
+        eliminarHastaPrimerPalabra(ref)
       }
     }
   }
@@ -215,42 +209,42 @@ function eliminarHastaPrimerPalabra(ref) {
 
 // Ej x = "hola a todos *123" => "hola a "
 function eliminarDesdePrimerPalabra(ref) {
-  if (ref.x == "") {
+  if (ref.x == '') {
     // nada
   } else {
-    let a = ref.x[ref.x.length - 1];
+    let a = ref.x[ref.x.length - 1]
     ref.x = ref.x.substring(0, ref.x.length - 1)
     if (!verificarLetra(a)) {
-      eliminarDesdePrimerPalabra(ref);
+      eliminarDesdePrimerPalabra(ref)
     } else {
-      if (ref.x != "" && verificarLetra(ref.x[ref.x.length - 1])) {
-        eliminarDesdePrimerPalabra(ref);
+      if (ref.x != '' && verificarLetra(ref.x[ref.x.length - 1])) {
+        eliminarDesdePrimerPalabra(ref)
       }
     }
   }
 }
 
 function contarPalabras(x) {
-  let c;
-  let length = x.length;
+  let c
+  let length = x.length
   if (length === 0) {
-    c = 0;
+    c = 0
   } else if (length === 1) {
     if (verificarLetra(x[0])) {
-      c = 1;
+      c = 1
     } else {
-      c = 0;
+      c = 0
     }
   } else {
-    let a = x[0];
-    x = x.substring(1, x.length);
-    c = contarPalabras(x);
+    let a = x[0]
+    x = x.substring(1, x.length)
+    c = contarPalabras(x)
     if (verificarLetra(a) && !verificarLetra(x[0])) {
-      c++;
+      c++
     }
   }
 
-  return c;
+  return c
 }
 
 // void invertir_frase(String x) {
@@ -413,4 +407,4 @@ function contarPalabras(x) {
 // }
 
 // TODO : invertir_cada_palabra(x);
-export {verificarLetra, primerPalabra, eliminarPrimerPalabra}
+export { verificarLetra, primerPalabra, eliminarPrimerPalabra }

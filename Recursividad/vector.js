@@ -1,4 +1,5 @@
 import { verificarLetra, primerPalabra, eliminarPrimerPalabra } from './string.js'
+import { factorial } from './number.js'
 // Cargar Random
 function cargar(v, n) {
   if (n === 0) {
@@ -166,48 +167,48 @@ function contarNumerosPares(v, n) {
 //Escribir un proceso para eliminar el dato x de un vector.
 //Ej. v[2,5,65,23,45,2,13,45,61], x=2 EliminarX(x, v, 9) => v[5,65,23,45,13,45,61]
 
-function Recorrer(v, a, b) {
+function recorrer(v, a, b) {
   let n = b - a + 1
   if (n > 0) {
     v[a] = v[a + 1]
-    Recorrer(v, a + 1, b)
+    recorrer(v, a + 1, b)
   }
 }
 
 // Hay un problema cuando se repite el número
 // [ 8, 4, 6, 5, 4, 2 ]
 // [ 8, 6, 5, 2, undefined ]
-function EliminarX(v, a, b, x) {
+function eliminar_numero(v, a, b, x) {
   let n = b - a + 1
   if (n > 0) {
     let d = v[a]
-    EliminarX(v, a + 1, b, x)
+    eliminar_numero(v, a + 1, b, x)
     if (d === x) {
-      Recorrer(v, a, b)
+      recorrer(v, a, b)
       v.length--
     }
   }
 }
 
-// function verificarPalindromo(v, a, b, n) {
-//   let p = true
-//   if (a <= n / 2) {
-//     p = verificarPalindromo(v, a + 1, b - 1, n)
-//     if (p !== false) {
-//       if (v[a] === v[b]) {
-//         p = true
-//       } else {
-//         p = false
-//       }
-//     }
-//   }
-//   return p
-// }
+function factorial_numeros(v, n) {
+  if (n > 0) {
+    let d = factorial(v[n - 1])
+    v[n - 1] = d
+    factorial_numeros(v, n - 1)
+  }
+}
 
-// void factorialvector(TStringGrid *v,byte n){
-//  if (n>0){
-// 	 int d=factorial(StrToInt(v->Cells[n-1][0]));
-// 	 v->Cells[n-1][0]=d;
-// 	 factorialvector(v,n-1);
-//  }
-// }
+function verificarPalindromo(v, a, b, n) {
+  let p = true
+  if (a <= n / 2) {
+    p = verificarPalindromo(v, a + 1, b - 1, n)
+    if (p !== false) {
+      if (v[a] === v[b]) {
+        p = true
+      } else {
+        p = false
+      }
+    }
+  }
+  return p
+}

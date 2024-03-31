@@ -1,8 +1,8 @@
 // devuelve el numero de fibonacci
-const fibonacci = (num) => {
+const fibonacci = num => {
   if (num === 1) return 0
-  num--;
-  const fibo = (n) => {
+  num--
+  const fibo = n => {
     if (n <= 1) return n
     return fibo(n - 1) + fibo(n - 2)
   }
@@ -77,158 +77,157 @@ function crearTrianguloRectangulo(altura) {
 
 // suma los digitos de un número
 function sumarDigitos(x) {
-  let s;
+  let s
   if (x < 10) {
-    s = x;
+    s = x
+  } else {
+    s = sumarDigitos(Math.floor(x / 10)) + (x % 10)
   }
-  else {
-    s = sumarDigitos(Math.floor(x / 10)) + x % 10;
-  }
-  return s;
+  return s
 }
 
 // suma los digitos impares de un número
 function sumarDigitosImpares(x) {
-  let s;
+  let s
   if (x < 10) {
-    if (x % 2 == 1)
-      s = x;
-    else
-      s = 0;
+    if (x % 2 == 1) s = x
+    else s = 0
+  } else {
+    s = sumarDigitosImpares(Math.floor(x / 10))
+    if (x % 2 == 1) s = s + (x % 10)
   }
-  else {
-    s = sumarDigitosImpares(Math.floor(x / 10));
-    if (x % 2 == 1)
-      s = s + x % 10;
-  }
-  return s;
+  return s
 }
 
 function sumarDigitosPares(x) {
-  let s;
+  let s
   if (x < 10) {
-    if (x % 2 == 0)
-      s = x;
-    else
-      s = 0;
+    if (x % 2 == 0) s = x
+    else s = 0
+  } else {
+    s = sumarDigitosImpares(Math.floor(x / 10))
+    if (x % 2 == 0) s = s + (x % 10)
   }
-  else {
-    s = sumarDigitosImpares(Math.floor(x / 10));
-    if (x % 2 == 0)
-      s = s + x % 10;
-  }
-  return s;
+  return s
 }
 
 function restarDigitosImparPar(x) {
-  let s;
+  let s
   if (x < 10) {
-    if (x % 2 == 1)
-      s = x;
-    else
-      s = -x;
+    if (x % 2 == 1) s = x
+    else s = -x
+  } else {
+    if (x % 2 == 1) s = x % 10
+    else s = -x % 10
+    s = restarDigitosImparPar(Math.floor(x / 10)) + s
   }
-  else {
-    if (x % 2 == 1)
-      s = x % 10;
-    else
-      s = -x % 10;
-    s = restarDigitosImparPar(Math.floor(x / 10)) + s;
-  }
-  return s;
+  return s
 }
 
 function restarDigitosParImpar(x) {
-  let s;
+  let s
   if (x < 10) {
-    if (x % 2 == 0)
-      s = x;
-    else
-      s = -x;
+    if (x % 2 == 0) s = x
+    else s = -x
+  } else {
+    if (x % 2 == 0) s = x % 10
+    else s = -x % 10
+    s = restarDigitosParImpar(Math.floor(x / 10)) + s
   }
-  else {
-    if (x % 2 == 0)
-      s = x % 10;
-    else
-      s = -x % 10;
-    s = restarDigitosParImpar(Math.floor(x / 10)) + s;
-  }
-  return s;
+  return s
 }
 
 function agregarComaDigitos(x) {
-  let s;
+  let s
   if (x < 10) {
-    s = x;
+    s = x
+  } else {
+    s = agregarComaDigitos(Math.floor(x / 10)) + ',' + (x % 10)
   }
-  else {
-    s = agregarComaDigitos(Math.floor(x / 10)) + ',' + x % 10;
-  }
-  return s;
+  return s
 }
 
 function agregarComaDigitosEInvertir(x) {
-  let s;
+  let s
   if (x < 10) {
-    s = x;
+    s = x
+  } else {
+    s = (x % 10) + ',' + agregarComaDigitosEInvertir(Math.floor(x / 10))
   }
-  else {
-    s = (x % 10) + ',' + agregarComaDigitosEInvertir(Math.floor(x / 10));
-  }
-  return s;
+  return s
 }
 
 function retornarMenorDigito(x) {
-  let m;
+  let m
   if (x < 10) {
-    m = x;
-  }
-  else {
-    m = retornarMenorDigito(Math.floor(x / 10));
+    m = x
+  } else {
+    m = retornarMenorDigito(Math.floor(x / 10))
     if (x % 10 < m) {
-      m = x % 10;
+      m = x % 10
     }
   }
-  return m;
+  return m
+}
+
+function obtenerDivisor(n, divisor) {
+  let div
+  if (n <= 1) {
+    div = 1
+  } else if (divisor === 1) {
+    div = 1
+  } else if (n % divisor === 0) {
+    div = divisor
+  } else {
+    div = obtenerDivisor(n, divisor - 1)
+  }
+  return div
+}
+
+function verificarPrimo(n) {
+  let b
+  if (n <= 1) {
+    b = false
+  } else {
+    let divisor = obtenerDivisor(n, n - 1)
+    b = divisor === 1
+  }
+  return b
 }
 
 function verificarOrdenadoAscendente(x) {
-  let b;
+  let b
   if (x < 10) {
-    b = true;
+    b = true
+  } else {
+    b = verificarOrdenadoAscendente(Math.floor(x / 10)) && (x / 10) % 10 <= x % 10
   }
-  else {
-    b = verificarOrdenadoAscendente(Math.floor(x / 10)) && (x / 10 % 10 <= x % 10);
-  }
-  return b;
+  return b
 }
 
 function verificarOrdenadoDescendente(x) {
-  let b;
+  let b
   if (x < 10) {
-    b = true;
+    b = true
+  } else {
+    b = verificarOrdenadoDescendente(Math.floor(x / 10)) && (x / 10) % 10 >= x % 10
   }
-  else {
-    b = verificarOrdenadoDescendente(Math.floor(x / 10)) && (x / 10 % 10 >= x % 10);
-  }
-  return b;
+  return b
 }
 
 function moverDigitoMayorAlFinal(ref) {
   if (ref.x < 10) {
     // nada
-  }
-  else {
-    let d = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    moverDigitoMayorAlFinal(ref);
+  } else {
+    let d = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    moverDigitoMayorAlFinal(ref)
     if (ref.x % 10 <= d) {
-      ref.x = ref.x * 10 + d;
-    }
-    else {
-      let z = ref.x % 10;
-      ref.x = Math.floor(ref.x / 10);
-      ref.x = (ref.x * 10 + d) * 10 + z;
+      ref.x = ref.x * 10 + d
+    } else {
+      let z = ref.x % 10
+      ref.x = Math.floor(ref.x / 10)
+      ref.x = (ref.x * 10 + d) * 10 + z
     }
   }
 }
@@ -236,18 +235,16 @@ function moverDigitoMayorAlFinal(ref) {
 function moverDigitoMenorAlFinal(ref) {
   if (ref.x < 10) {
     // nada
-  }
-  else {
-    let d = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    moverDigitoMenorAlFinal(ref);
+  } else {
+    let d = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    moverDigitoMenorAlFinal(ref)
     if (ref.x % 10 >= d) {
-      ref.x = ref.x * 10 + d;
-    }
-    else {
-      let z = ref.x % 10;
-      ref.x = Math.floor(ref.x / 10);
-      ref.x = (ref.x * 10 + d) * 10 + z;
+      ref.x = ref.x * 10 + d
+    } else {
+      let z = ref.x % 10
+      ref.x = Math.floor(ref.x / 10)
+      ref.x = (ref.x * 10 + d) * 10 + z
     }
   }
 }
@@ -255,43 +252,43 @@ function moverDigitoMenorAlFinal(ref) {
 function ordenamientoAscendente(ref) {
   if (ref.x < 10) {
     // nada
-  }
-  else {
-    moverDigitoMayorAlFinal(ref);
-    let ultimoDigito = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    ordenamientoAscendente(ref);
-    ref.x = ref.x * 10 + ultimoDigito;
+  } else {
+    moverDigitoMayorAlFinal(ref)
+    let ultimoDigito = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    ordenamientoAscendente(ref)
+    ref.x = ref.x * 10 + ultimoDigito
   }
 }
 
 function ordenamientoDescendente(ref) {
   if (ref.x < 10) {
     // nada
-  }
-  else {
-    moverDigitoMenorAlFinal(ref);
-    let ultimoDigito = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    ordenamientoDescendente(ref);
-    ref.x = ref.x * 10 + ultimoDigito;
+  } else {
+    moverDigitoMenorAlFinal(ref)
+    let ultimoDigito = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    ordenamientoDescendente(ref)
+    ref.x = ref.x * 10 + ultimoDigito
   }
 }
 
 function eliminarDigitosImpares(ref) {
-  if (ref.x < 10) { // caso base
+  if (ref.x < 10) {
+    // caso base
     if (ref.x % 2 == 0) {
-      // nada 
-    } if (ref.x % 2 == 1) {
-      ref.x = 0;
+      // nada
     }
-  }
-  else { // caso general
-    let ultimoDigito = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    eliminarDigitosImpares(ref);
+    if (ref.x % 2 == 1) {
+      ref.x = 0
+    }
+  } else {
+    // caso general
+    let ultimoDigito = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    eliminarDigitosImpares(ref)
     if (ultimoDigito % 2 == 0) {
-      ref.x = ref.x * 10 + ultimoDigito;
+      ref.x = ref.x * 10 + ultimoDigito
     }
     if (ultimoDigito % 2 == 1) {
       // nada
@@ -300,19 +297,21 @@ function eliminarDigitosImpares(ref) {
 }
 
 function eliminarDigitosPares(ref) {
-  if (ref.x < 10) { // caso base
+  if (ref.x < 10) {
+    // caso base
     if (ref.x % 2 == 1) {
-      // nada 
-    } if (ref.x % 2 == 0) {
-      ref.x = 0;
+      // nada
     }
-  }
-  else { // caso general
-    let ultimoDigito = ref.x % 10;
-    ref.x = Math.floor(ref.x / 10);
-    eliminarDigitosPares(ref);
+    if (ref.x % 2 == 0) {
+      ref.x = 0
+    }
+  } else {
+    // caso general
+    let ultimoDigito = ref.x % 10
+    ref.x = Math.floor(ref.x / 10)
+    eliminarDigitosPares(ref)
     if (ultimoDigito % 2 == 1) {
-      ref.x = ref.x * 10 + ultimoDigito;
+      ref.x = ref.x * 10 + ultimoDigito
     }
     if (ultimoDigito % 2 == 0) {
       // nada
@@ -321,58 +320,56 @@ function eliminarDigitosPares(ref) {
 }
 
 function encontrarDigitoMayorYMenor(x, ref) {
-  if (x < 10) { // caso base
-    ref.M = x;
-    ref.m = x;
-  }
-  else { // caso general
-    let ultimoDigito = x % 10;
-    x = Math.floor(x / 10);
-    encontrarDigitoMayorYMenor(x, ref);
+  if (x < 10) {
+    // caso base
+    ref.M = x
+    ref.m = x
+  } else {
+    // caso general
+    let ultimoDigito = x % 10
+    x = Math.floor(x / 10)
+    encontrarDigitoMayorYMenor(x, ref)
     if (ref.M < ultimoDigito) {
-      ref.M = ultimoDigito;
+      ref.M = ultimoDigito
     }
     if (ref.m > ultimoDigito) {
-      ref.m = ultimoDigito;
+      ref.m = ultimoDigito
     }
   }
 }
 
 function repetirNumero(numero, veces) {
-  let cad;
-  if (veces == 0)
-    cad = "";
-  else
-    cad = repetirNumero(numero, veces - 1) + numero;
-  return cad;
+  let cad
+  if (veces == 0) cad = ''
+  else cad = repetirNumero(numero, veces - 1) + numero
+  return cad
 }
 
 function repetirDigitos(n) {
-  let cad;
-  if (n < 10)
-    cad = repetirNumero(n, n);
+  let cad
+  if (n < 10) cad = repetirNumero(n, n)
   else {
-    let dig = n % 10;
-    n = Math.floor(n / 10);
-    cad = repetirDigitos(n) + repetirNumero(dig, dig);
+    let dig = n % 10
+    n = Math.floor(n / 10)
+    cad = repetirDigitos(n) + repetirNumero(dig, dig)
   }
-  return cad;
+  return cad
 }
 
 function contarDigitosImparesAntesDeUnoPar(x) {
-  let c;
+  let c
   if (x < 10) {
-    c = 0;
-  }
-  else {
-    let ultimoDigito = x % 10;
-    let penultimoDigito = Math.floor(x / 10) % 10;
+    c = 0
+  } else {
+    let ultimoDigito = x % 10
+    let penultimoDigito = Math.floor(x / 10) % 10
     if (penultimoDigito % 2 == 0 && ultimoDigito % 2 == 1) {
-      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10)) + 1;
-    }
-    else {
-      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10));
+      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10)) + 1
+    } else {
+      c = contarDigitosImparesAntesDeUnoPar(Math.floor(x / 10))
     }
   }
-  return c;
+  return c
 }
+
+export { factorial }

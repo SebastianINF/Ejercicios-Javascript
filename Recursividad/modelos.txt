@@ -1,10 +1,11 @@
-// 1: Escribir un proceso para eliminar m datos de un vector de n números desde la posición p. Pueden escribir hasta 2 procesos
-// Ej. Eliminar v[1,4,5,3,6,7,1,9] , n = 0, m = 3, p = 5 => v[1,4,3,2,6,9], n = 6
+// Dado un vector con n datos, eliminar de él "m" datos desde la posición "p"
+
+v[7,3,4,5,8,15,9,1,6,2], p =3, m = 4 => v[7,3,4,1,6,2]
 
 2. Escribir un proceso para ordenar un vector. Con el algoritmo MergeSort
 3. Escribir un proceso para ordenar un vector. Con el algoritmo InsertionSort
-4. Escribir un proceso para eliminar el dato x de un vector.
-Ej. v[2,5,65,23,45,2,13,45,61], x=2 EliminarX(v, 9, x) => v[5,65,23,45,13,45,61]
+4. Escribir un proceso para eliminar el dato x de un vector. ✔️
+Ej. v[2,5,65,23,45,2,13,45,61], x=2 EliminarX(v, 9, x) => v[5,65,23,45,13,45,61] 
 5. Escribir un proceso para invertir una parte de un vector (comprendido entre a y b)
 Ej. v[2,5,65,23,45,2,13,45] Invetir (v, 2, 6) => v[2,5, 13, 2, 45, 23, 65, 45]
 
